@@ -2,6 +2,7 @@
 'use strict';
 
 const curveJs = require('curve25519-js');
+const { verify25519, sign25519 } = require("paw25519");
 const nodeCrypto = require('crypto');
 // from: https://github.com/digitalbazaar/x25519-key-agreement-key-2019/blob/master/lib/crypto.js
 const PUBLIC_KEY_DER_PREFIX = Buffer.from([
@@ -124,7 +125,7 @@ exports.calculateSignature = function(privKey, message) {
     if (!message) {
         throw new Error("Invalid message");
     }
-    return Buffer.from(curveJs.sign(privKey, message));
+    return Buffer.from(sign25519(privKey, message));
 };
 
 exports.verifySignature = function(pubKey, msg, sig, isInit) {
@@ -138,5 +139,5 @@ exports.verifySignature = function(pubKey, msg, sig, isInit) {
     if (!sig || sig.byteLength != 64) {
         throw new Error("Invalid signature");
     }
-    return isInit ? true : curveJs.verify(pubKey, msg, sig);
+    return isInit ? true : verify25519(pubKey, msg, sig);
 };

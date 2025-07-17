@@ -12,6 +12,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "curve25519-js": "^0.0.4",
+    "paw25519": "github:LightningNeko/paw25519",
     "protobufjs": "6.8.8"
   },
   "files": [
