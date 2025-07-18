@@ -139,5 +139,5 @@ exports.verifySignature = function(pubKey, msg, sig, isInit) {
     if (!sig || sig.byteLength != 64) {
         throw new Error("Invalid signature");
     }
-    return isInit ? true : verify25519(pubKey, msg, sig);
+    return isInit ? true : verify25519(sig, pubKey, msg);
 };
